@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Button from './Button';
-import { MDBContainer, MDBRow,MDBCol,MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow,MDBCol,MDBBtn,MDBNav } from 'mdbreact';
 
 
 function Credentials(){
@@ -17,7 +17,7 @@ function Credentials(){
    }
 
    return (
-      <div>
+   <div className = "top">
     <div className= "shadow-box-example z-depth-2">
     <MDBContainer>
     <form onSubmit={handleSubmit}> 
@@ -25,7 +25,7 @@ function Credentials(){
     <MDBCol size="9"> <p className= "h5 text-center mb-4">Choose token type </p>
     </MDBCol></MDBRow> 
     <MDBRow><fieldset id='type'>
-    <MDBCol><input type = "radio" name = "type" value = "OAuth" onChange={e => setType(e.target.value)}/><label>OAuth</label> </MDBCol>	
+    <MDBCol><input type = "radio" name = "type" value = "OAuth"onChange={e => setType(e.target.value)}/><label>OAuth</label> </MDBCol>	
     <MDBCol><input type = "radio" name = "type" value = "JWT" onChange={e => setType(e.target.value)}/><label>JWT</label></MDBCol></fieldset></MDBRow>
     
    
