@@ -1,3 +1,11 @@
+.shadow-box-example{
+  padding: 10px;
+}
+
+input[type="radio"]{
+
+  border: 2px dashed;
+}
 .App {
   text-align: center;
 }
