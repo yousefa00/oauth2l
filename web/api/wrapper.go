@@ -11,7 +11,7 @@ type WrapperCommand struct {
 	Args
 }
 
-// Args type used for unmarshaled JSON
+// Args type used for unmarshalled JSON
 type Args map[string]interface{}
 
 // Execute will capture output of OAuth2l CLI using command args
@@ -46,6 +46,10 @@ func combinedArgs(wc WrapperCommand) (combinedArgs []string, ok bool) {
 			combinedArgs = append(combinedArgs, value...)
 		case string:
 			combinedArgs = append(combinedArgs, value)
+		case []interface{}:
+			for _, subValue := range value {
+				combinedArgs = append(combinedArgs, subValue.(string))
+			}
 		default:
 			return nil, false
 		}
