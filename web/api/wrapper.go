@@ -1,8 +1,8 @@
-package api
+package main
 
 import (
-	"os/exec"
 	"fmt"
+	"os/exec"
 )
 
 // WrapperCommand represents components necessary for OAuth2l request
@@ -39,7 +39,7 @@ func combinedArgs(wc WrapperCommand) (combinedArgs []string, ok bool) {
 
 	for flag, value := range wc.Args {
 		combinedArgs = append(combinedArgs, flag)
-		
+
 		// Assert args are of type string or []string
 		switch value := value.(type) {
 		case []string:
