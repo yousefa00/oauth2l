@@ -78,7 +78,16 @@ func AuthHandler(next http.Handler) http.Handler {
 //OkHandler function to test is token in valid
 func OkHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
-	io.WriteString(w, `{"status":"ok"}`)
+	// io.WriteString(w, `{"status":"ok"}`)
+	newWrapperCommand := &WrapperCommand{
+		RequestType: creds.RequestType,
+		Args:        creds.Args,
+	}
+	response, err := newWrapperCommand.Execute()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+	io.WriteString(w, `{"response":"`+response+`"}`)
 
 }
 
