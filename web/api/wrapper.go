@@ -46,6 +46,10 @@ func combinedArgs(wc WrapperCommand) (combinedArgs []string, ok bool) {
 			combinedArgs = append(combinedArgs, value...)
 		case string:
 			combinedArgs = append(combinedArgs, value)
+		case []interface{}:
+			for _, subValue := range value {
+				combinedArgs = append(combinedArgs, subValue.(string))
+			}
 		default:
 			return nil, false
 		}
