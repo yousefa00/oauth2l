@@ -1,8 +1,6 @@
 import React from 'react';
 
 function Radio(props){
-
-
     return(
         <div className="custom-control custom-radio">
             <input type = "radio"
@@ -11,7 +9,7 @@ function Radio(props){
              className= "custom-control-input" 
              id= {props.id} 
              onChange={props.changed}/>
-            <label className="custom-control-label" for={props.id}>{props.value}</label>
+            <label className="custom-control-label" htmlFor={props.id}>{props.value}</label>
         </div>
     );
 
