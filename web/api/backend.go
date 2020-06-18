@@ -16,6 +16,7 @@ import (
 type Credentials struct {
 	RequestType string
 	Args        map[string]interface{}
+	UseCache    string
 	Body        map[string]interface{}
 }
 
@@ -38,7 +39,6 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-
 	if len(creds.Body) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
 		io.WriteString(w, `{"error":"cannot make token without credentials"}`)
@@ -67,10 +67,10 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	io.WriteString(w, `{"token":"`+tokenString+`"}`)
+
 }
 
-// AuthHandler checks if token is valid. Returning
-// a 401 status to the client if it is not valid.
+// AuthHandler checks if token is valid. Returning a 401 status to the client if it is not valid.
 func AuthHandler(next http.Handler) http.Handler {
 	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
@@ -81,10 +81,22 @@ func AuthHandler(next http.Handler) http.Handler {
 	return jwtMiddleware.Handler(next)
 }
 
+func NoTokenHandler(w http.ResponseWriter, r *http.Request) {
+	var cacheCreds Credentials
+	err := json.NewDecoder(r.Body).Decode(&cacheCreds)
+	if err != nil {
+		// If the structure of the body is wrong, return an HTTP error
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	creds = cacheCreds
+	OkHandler(w, r)
+
+}
+
 //OkHandler function to test is token in valid
 func OkHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
-	// io.WriteString(w, `{"status":"ok"}`)
 	newWrapperCommand := &WrapperCommand{
 		RequestType: creds.RequestType,
 		Args:        creds.Args,
@@ -104,7 +116,10 @@ func main() {
 		fmt.Fprintf(w, "Hello World")
 	})
 	http.HandleFunc("/token", TokenHandler)
+
 	http.Handle("/auth", AuthHandler(http.HandlerFunc(OkHandler)))
+
+	http.HandleFunc("/notoken", NoTokenHandler)
 
 	if err := http.ListenAndServe(":8081", nil); err != nil {
 		log.Fatal(err)

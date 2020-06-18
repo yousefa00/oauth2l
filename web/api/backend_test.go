@@ -101,13 +101,13 @@ func TestAuthHandlerValid(t *testing.T) {
 	}
 }
 
-func TestTokenHandlerNoBody(t *testing.T) {
+func TestTokenHandlerNoBody1(t *testing.T) {
 
 	jsonStr := []byte(`{
         "requesttype":"fetch",
         "args":{
             "--scope":["cloud-platform","userinfo.email"]
-        }
+		}
     }`)
 
 	req, err := http.NewRequest("POST", "/token", bytes.NewBuffer(jsonStr))
@@ -133,13 +133,74 @@ func TestTokenHandlerNoBody(t *testing.T) {
 
 }
 
-func TestTokenHandlerValid(t *testing.T) {
+func TestTokenHandlerNoBody2(t *testing.T) {
 
 	jsonStr := []byte(`{
         "requesttype":"fetch",
         "args":{
             "--scope":["cloud-platform","userinfo.email"]
-        },
+		},
+		"body":{}
+    }`)
+
+	req, err := http.NewRequest("POST", "/token", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(TokenHandler)
+
+	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
+	// directly and pass in our Request and ResponseRecorder.
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusBadRequest {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusBadRequest)
+	}
+	expected := `{"error":"cannot make token without credentials"}`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+
+}
+
+func TestTokenHandlerNoCreation(t *testing.T) {
+
+	jsonStr := []byte(`{
+        "requesttype":"fetch",
+        "args":{
+            "--scope":["cloud-platform","userinfo.email"]
+		}
+    }`)
+
+	req, err := http.NewRequest("POST", "/notoken", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(NoTokenHandler)
+
+	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
+	// directly and pass in our Request and ResponseRecorder.
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+}
+
+func TestTokenHandlerValidWithCreation(t *testing.T) {
+
+	jsonStr := []byte(`{
+        "requesttype":"fetch",
+        "args":{
+            "--scope":["cloud-platform","userinfo.email"]
+		},
+		"needToken":"true",
         "body": {
       "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
       "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
