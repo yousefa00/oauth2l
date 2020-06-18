@@ -1,21 +1,34 @@
+/* eslint "require-jsdoc": ["error", {
+    "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": false
+    }
+}]*/
+
 import React, { useState } from "react";
 import Button from "./Button";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import Radio from "./Radio";
 
+
+
+/**
+ * 
+ * @return {div} returns the page that contains the ability to choose the type 
+ */
 function Credentials() {
   const [type, setType] = useState("");
   const [format, setFormat] = useState("");
-  const formatChange = (e) => setFormat(e.target.value); // refactoring code
-  const typeChange = (e) => setType(e.target.value); // refactoring code
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.format.value === "Header" && e.target.type.value === "JWT") {
       alert("JWT type and Header format are not allowed!");
     } else {
-      console.log(e.target.type.value);
-      console.log(e.target.format.value);
+        // send it to scopes        
+        return [type,format] // holding it to remove unused vars error
+        
     }
   };
 
@@ -35,7 +48,7 @@ function Credentials() {
                     name="type"
                     value="OAuth"
                     id="defaultGroupExample1"
-                    onChange={typeChange}
+                    onChange={e => setType(e.target.value)}
                   />
                 </MDBCol>
                 <MDBCol>
@@ -44,7 +57,7 @@ function Credentials() {
                     name="type"
                     value="JWT"
                     id="defaultGroupExample2"
-                    onChange={typeChange}
+                    onChange={e => setType(e.target.value)}
                   />
                 </MDBCol>
               </MDBRow>
@@ -62,7 +75,7 @@ function Credentials() {
                     name="format"
                     value="Bare"
                     id="defaultGroupExample3"
-                    onChange={formatChange}
+                    onChange={e => setFormat(e.target.value)}
                   />
                 </MDBCol>
                 <MDBCol>
@@ -70,7 +83,7 @@ function Credentials() {
                     name="format"
                     value="Header"
                     id="defaultGroupExample4"
-                    onChange={formatChange}
+                    onChange={e => setFormat(e.target.value)}
                   />
                 </MDBCol>
               </MDBRow>
@@ -81,7 +94,7 @@ function Credentials() {
                     name="format"
                     value="JSON"
                     id="defaultGroupExample5"
-                    onChange={formatChange}
+                    onChange={e => setFormat(e.target.value)}
                   />
                 </MDBCol>
                 <MDBCol>
@@ -89,7 +102,7 @@ function Credentials() {
                     name="format"
                     value="JSON_Compact"
                     id="defaultGroupExample6"
-                    onChange={formatChange}
+                    onChange={e => setFormat(e.target.value)}
                   />{" "}
                 </MDBCol>
               </MDBRow>
@@ -100,7 +113,7 @@ function Credentials() {
                   name="format"
                   value="Pretty"
                   id="defaultGroupExample7"
-                  onChange={formatChange}
+                  onChange={e => setFormat(e.target.value)}
                 />
               </MDBCol>
             </fieldset>

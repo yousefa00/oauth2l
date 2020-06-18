@@ -1,6 +1,18 @@
+/* eslint "require-jsdoc": ["error", {
+    "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": false
+    }
+}]*/
+
+
 import React from "react";
 import { MDBContainer, MDBAlert } from "mdbreact";
 
+/**
+ * @return {MDBContainer} returns webapp as a whole
+ */
 function AlertP() {
   return (
     <MDBContainer>
