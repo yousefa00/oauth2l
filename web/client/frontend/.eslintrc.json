@@ -1,10 +1,11 @@
 {
-  "extends": ["eslint:recommended", "google", "prettier"],
+  "extends": ["eslint:recommended", "google", "plugin:react/recommended", "plugin:prettier/recommended"],
   "env": {
     "browser": true
   },
   "rules": {
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-console": "error"
   },
   "parser": "babel-eslint"
 }
