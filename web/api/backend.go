@@ -81,6 +81,7 @@ func AuthHandler(next http.Handler) http.Handler {
 	return jwtMiddleware.Handler(next)
 }
 
+//NoTokenHandler for the case when a cached token is not used
 func NoTokenHandler(w http.ResponseWriter, r *http.Request) {
 	var cacheCreds Credentials
 	err := json.NewDecoder(r.Body).Decode(&cacheCreds)
