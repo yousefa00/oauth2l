@@ -28,15 +28,9 @@ func (wc WrapperCommand) Execute() (output string, err error) {
 	command := exec.Command("oauth2l", args...)
 	byteBuffer, err := command.Output()
 
-<<<<<<< HEAD
-	// Convert byteBuffer to string for output
-	output = string(byteBuffer)
-
-=======
 	// Convert byteBuffer to string and remove newline character
 	output = strings.TrimSuffix(string(byteBuffer), "\n")
 	
->>>>>>> 611b7772f470f39a537c2941287a5432d777b14d
 	return
 }
 
