@@ -8,6 +8,25 @@ import (
 	"testing"
 )
 
+func TestAuthHandlerValid(t *testing.T) {
+	req, err := http.NewRequest("POST", "/auth", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJCb2R5Ijp7ImNsaWVudF9pZCI6Ijc2NDA4NjA1MTg1MC02cXI0cDZncGk2aG41MDZwdDhlanVxODNkaTM0MWh1ci5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImNsaWVudF9zZWNyZXQiOiJkLUZMOTVRMTlxN01RbUZwZDdoSEQwVHkiLCJxdW90YV9wcm9qZWN0X2lkIjoiZGVsYXlzLW9yLXRyYWZmaS0xNTY5MTMxMTUzNzA0IiwicmVmcmVzaF90b2tlbiI6IjEvLzBkRlN4eGk0Tk9UbDJDZ1lJQVJBQUdBMFNOd0YtTDlJcmE1WVRubkZlcjFHQ1pCVG9Ha3dtVk1Bb3VuR2FpX3g0Q2dId01BRmdGTkJzUFNLNWhCd3hmcEduODh1M3JvUHJSY1EiLCJ0eXBlIjoiYXV0aG9yaXplZF91c2VyIn19.OSNSv1HGq1C9sbtS7lSU4zRiMURNsbV9QuMOKj2sK6s")
+	rr := httptest.NewRecorder()
+	handler := (AuthHandler(http.HandlerFunc(OkHandler)))
+
+	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
+	// directly and pass in our Request and ResponseRecorder.
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+}
+
 func TestAuthHandlerExpired(t *testing.T) {
 	req, err := http.NewRequest("POST", "/auth", nil)
 	if err != nil {
@@ -77,31 +96,6 @@ func TestAuthHandlerInvalid2(t *testing.T) {
 
 	expected := "illegal base64 data at input byte 473"
 	if reflect.DeepEqual(rr.Body.String(), expected) {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
-	}
-}
-
-func TestAuthHandlerValid(t *testing.T) {
-	req, err := http.NewRequest("POST", "/auth", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJCb2R5Ijp7ImNsaWVudF9pZCI6Ijc2NDA4NjA1MTg1MC02cXI0cDZncGk2aG41MDZwdDhlanVxODNkaTM0MWh1ci5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImNsaWVudF9zZWNyZXQiOiJkLUZMOTVRMTlxN01RbUZwZDdoSEQwVHkiLCJxdW90YV9wcm9qZWN0X2lkIjoiZGVsYXlzLW9yLXRyYWZmaS0xNTY5MTMxMTUzNzA0IiwicmVmcmVzaF90b2tlbiI6IjEvLzBkRlN4eGk0Tk9UbDJDZ1lJQVJBQUdBMFNOd0YtTDlJcmE1WVRubkZlcjFHQ1pCVG9Ha3dtVk1Bb3VuR2FpX3g0Q2dId01BRmdGTkJzUFNLNWhCd3hmcEduODh1M3JvUHJSY1EiLCJ0eXBlIjoiYXV0aG9yaXplZF91c2VyIn19.OSNSv1HGq1C9sbtS7lSU4zRiMURNsbV9QuMOKj2sK6s")
-	rr := httptest.NewRecorder()
-	handler := (AuthHandler(http.HandlerFunc(OkHandler)))
-
-	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
-	// directly and pass in our Request and ResponseRecorder.
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
-
-	expected := `{"testing"}`
-	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
 	}
