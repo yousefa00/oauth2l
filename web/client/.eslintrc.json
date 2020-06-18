@@ -3,19 +3,12 @@
     "eslint:recommended",
     "google",
     "plugin:react/recommended",
-<<<<<<< HEAD
-    "prettier"
-  ],
-  "env": {
-    "browser": true
-=======
     "jest-enzyme",
     "prettier"
   ],
   "env": {
     "browser": true,
     "jest": true
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
   },
   "rules": {
     "jsx-a11y/anchor-is-valid": "off",

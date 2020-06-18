@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import { MDBContainer, MDBAlert } from "mdbreact";
-
-=======
 /* eslint "require-jsdoc": ["error", {
     "require": {
         "FunctionDeclaration": true,
@@ -17,7 +12,6 @@ import { MDBContainer, MDBAlert } from "mdbreact";
 /**
  * @return {MDBContainer} returns webapp as a whole
  */
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
 function AlertP() {
   return (
     <MDBContainer>

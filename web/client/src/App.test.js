@@ -1,8 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import { render } from "@testing-library/react";
-import App from "./App";
-=======
 import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
@@ -21,4 +17,3 @@ describe("Credential Component", () => {
     expect(wrapper).toBeDefined();
   });
 });
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de

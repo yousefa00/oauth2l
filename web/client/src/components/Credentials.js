@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /* eslint "require-jsdoc": ["error", {
     "require": {
         "FunctionDeclaration": true,
@@ -8,19 +6,11 @@
     }
 }]*/
 
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
 import React, { useState } from "react";
 import Button from "./Button";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import Radio from "./Radio";
 
-<<<<<<< HEAD
-function Credentials() {
-  const [type, setType] = useState("");
-  const [format, setFormat] = useState("");
-  const formatChange = (e) => setFormat(e.target.value); // refactoring code
-  const typeChange = (e) => setType(e.target.value); // refactoring code
-=======
 /**
  *
  * @return {div} returns the page that contains the ability to choose the type
@@ -28,20 +18,14 @@ function Credentials() {
 function Credentials() {
   const [type, setType] = useState("");
   const [format, setFormat] = useState("");
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.format.value === "Header" && e.target.type.value === "JWT") {
       alert("JWT type and Header format are not allowed!");
     } else {
-<<<<<<< HEAD
-      console.log(e.target.type.value);
-      console.log(e.target.format.value);
-=======
       // send it to scopes
       return [type, format]; // holding it to remove unused vars error
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
     }
   };
 
@@ -61,11 +45,7 @@ function Credentials() {
                     name="type"
                     value="OAuth"
                     id="defaultGroupExample1"
-<<<<<<< HEAD
-                    onChange={typeChange}
-=======
                     onChange={(e) => setType(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                   />
                 </MDBCol>
                 <MDBCol>
@@ -74,11 +54,7 @@ function Credentials() {
                     name="type"
                     value="JWT"
                     id="defaultGroupExample2"
-<<<<<<< HEAD
-                    onChange={typeChange}
-=======
                     onChange={(e) => setType(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                   />
                 </MDBCol>
               </MDBRow>
@@ -96,11 +72,7 @@ function Credentials() {
                     name="format"
                     value="Bare"
                     id="defaultGroupExample3"
-<<<<<<< HEAD
-                    onChange={formatChange}
-=======
                     onChange={(e) => setFormat(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                   />
                 </MDBCol>
                 <MDBCol>
@@ -108,11 +80,7 @@ function Credentials() {
                     name="format"
                     value="Header"
                     id="defaultGroupExample4"
-<<<<<<< HEAD
-                    onChange={formatChange}
-=======
                     onChange={(e) => setFormat(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                   />
                 </MDBCol>
               </MDBRow>
@@ -123,11 +91,7 @@ function Credentials() {
                     name="format"
                     value="JSON"
                     id="defaultGroupExample5"
-<<<<<<< HEAD
-                    onChange={formatChange}
-=======
                     onChange={(e) => setFormat(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                   />
                 </MDBCol>
                 <MDBCol>
@@ -135,11 +99,7 @@ function Credentials() {
                     name="format"
                     value="JSON_Compact"
                     id="defaultGroupExample6"
-<<<<<<< HEAD
-                    onChange={formatChange}
-=======
                     onChange={(e) => setFormat(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                   />{" "}
                 </MDBCol>
               </MDBRow>
@@ -150,11 +110,7 @@ function Credentials() {
                   name="format"
                   value="Pretty"
                   id="defaultGroupExample7"
-<<<<<<< HEAD
-                  onChange={formatChange}
-=======
                   onChange={(e) => setFormat(e.target.value)}
->>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
                 />
               </MDBCol>
             </fieldset>
