@@ -46,13 +46,8 @@ func combinedArgs(wc WrapperCommand) (combinedArgs []string, ok bool) {
 
 	for flag, value := range wc.Args {
 		combinedArgs = append(combinedArgs, flag)
-<<<<<<< HEAD
-
-		// Assert args are of type string or []string
-=======
 		
 		// Assert args are of accepted types
->>>>>>> 611b7772f470f39a537c2941287a5432d777b14d
 		switch value := value.(type) {
 		case []string:
 			combinedArgs = append(combinedArgs, value...)
