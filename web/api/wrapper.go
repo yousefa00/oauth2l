@@ -3,6 +3,7 @@ package main
 import (
 	"os/exec"
 	"fmt"
+	"strings"
 )
 
 // WrapperCommand represents components necessary for OAuth2l request
@@ -27,9 +28,9 @@ func (wc WrapperCommand) Execute() (output string, err error) {
 	command := exec.Command("oauth2l", args...)
 	byteBuffer, err := command.Output()
 
-	// Convert byteBuffer to string for output
-	output = string(byteBuffer)
-
+	// Convert byteBuffer to string and remove newline character
+	output = strings.TrimSuffix(string(byteBuffer), "\n")
+	
 	return
 }
 
