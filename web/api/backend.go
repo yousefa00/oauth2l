@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 	"time"
-
+	wrapper "github.com/google/oauth2l/web/api/wrapper"
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 )
@@ -98,7 +98,7 @@ func NoTokenHandler(w http.ResponseWriter, r *http.Request) {
 //OkHandler function to test is token in valid
 func OkHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
-	newWrapperCommand := &WrapperCommand{
+	newWrapperCommand := &wrapper.WrapperCommand{
 		RequestType: creds.RequestType,
 		Args:        creds.Args,
 	}
