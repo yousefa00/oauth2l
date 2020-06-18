@@ -39,6 +39,12 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if len(creds.Body) == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		io.WriteString(w, `{"error":"cannot make token without credentials"}`)
+		return
+	}
+
 	// Declare the expiration time of the token
 	// here, we have kept it as 5 minutes
 	expirationTime := time.Now().Add(5 * time.Minute)
