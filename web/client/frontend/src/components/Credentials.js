@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import Button from './Button';
 import { MDBContainer, MDBRow,MDBCol,MDBBtn} from 'mdbreact';
 import Radio from './Radio';
-
+import Scopes from '../Scopes';
 function Credentials(){
    const [type,setType] = useState("");
    const [format, setFormat] = useState("");
@@ -17,6 +17,7 @@ function Credentials(){
          alert("JWT type and Header format are not allowed!");
             
       }else{
+      
       console.log(e.target.type.value);
       console.log(e.target.format.value);
       }
