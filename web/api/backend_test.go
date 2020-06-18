@@ -166,32 +166,32 @@ func TestTokenHandlerNoBody2(t *testing.T) {
 
 }
 
-func TestTokenHandlerNoCreation(t *testing.T) {
+// func TestTokenHandlerNoCreation(t *testing.T) {
 
-	jsonStr := []byte(`{
-        "requesttype":"fetch",
-        "args":{
-            "--scope":["cloud-platform","userinfo.email"]
-		}
-    }`)
+// 	jsonStr := []byte(`{
+//         "requesttype":"fetch",
+//         "args":{
+//             "--scope":["cloud-platform","userinfo.email"]
+// 		}
+//     }`)
 
-	req, err := http.NewRequest("GET", "/notoken", bytes.NewBuffer(jsonStr))
-	if err != nil {
-		t.Fatal(err)
-	}
-	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(NoTokenHandler)
+// 	req, err := http.NewRequest("GET", "/notoken", bytes.NewBuffer(jsonStr))
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+// 	rr := httptest.NewRecorder()
+// 	handler := http.HandlerFunc(NoTokenHandler)
 
-	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
-	// directly and pass in our Request and ResponseRecorder.
-	handler.ServeHTTP(rr, req)
+// 	// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
+// 	// directly and pass in our Request and ResponseRecorder.
+// 	handler.ServeHTTP(rr, req)
 
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
+// 	if status := rr.Code; status != http.StatusOK {
+// 		t.Errorf("handler returned wrong status code: got %v want %v",
+// 			status, http.StatusOK)
+// 	}
 
-}
+// }
 
 func TestTokenHandlerValidWithCreation(t *testing.T) {
 
