@@ -1,6 +1,7 @@
 .shadow-box-example {
   padding: 4rem;
 }
+<<<<<<< HEAD
 
 /*align everything in the app to the middle*/
 .App {
@@ -8,6 +9,16 @@
 }
 
 /*padding for the top of the container*/
+=======
+/*align everything in the app to the middle*/
+.App {
+  text-align: center;
+  position: relative;
+}
+
+/*padding for the top of the container*/
+
+>>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
 .top {
   padding: 3rem;
 }

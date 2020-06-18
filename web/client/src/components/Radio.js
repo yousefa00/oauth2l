@@ -1,5 +1,23 @@
+<<<<<<< HEAD
 import React from "react";
 
+=======
+/* eslint "require-jsdoc": ["error", {
+    "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": false
+    }
+}]*/
+
+import React from "react";
+import PropTypes from "prop-types";
+
+/**
+ * @param {string} props holds information about the button
+ * @return {div} returns Radio button that is used in Credentials page
+ */
+>>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
 function Radio(props) {
   return (
     <div className="custom-control custom-radio">
@@ -19,3 +37,14 @@ function Radio(props) {
 }
 
 export default Radio;
+<<<<<<< HEAD
+=======
+
+Radio.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+  changed: PropTypes.bool,
+};
+>>>>>>> dc9941067779d71ac2bee2b42a90e5c8007cf9de
