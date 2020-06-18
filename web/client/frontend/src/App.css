@@ -1,24 +1,24 @@
 .shadow-box-example{
-  padding: 4rem;
+  padding: 5rem;
+  width: 50%;
+  margin: 0 auto;
 }
 
 
 /*align everything in the app to the middle*/
 .App {
   text-align: center;
+  position: relative;
 }
 
 
 /*padding for the top of the container*/
 .top{
-
+  text-align: center;
   padding: 3rem;
 }
 
-.next{
-  margin-top: 3rem;
-  padding: 2rem;
-}
+
 
 #format{
 

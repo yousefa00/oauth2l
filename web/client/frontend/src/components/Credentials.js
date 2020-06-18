@@ -59,13 +59,8 @@ function Credentials(){
     </div>
     </form>
     </MDBContainer>
-    
-    </div>
-    <div style={{float:'right'}} className="next">
-    <Button name= "Next"></Button>
     </div>
     </div>
-
    );
 
 }
