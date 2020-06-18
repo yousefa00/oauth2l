@@ -8,10 +8,7 @@
 
 import React, { Fragment } from "react";
 import { MDBBtn } from "mdbreact";
-import PropTypes from 'prop-types';
-
-
-
+import PropTypes from "prop-types";
 
 /**
  * @param {string} props holds the name of the button
@@ -26,7 +23,6 @@ function Button(props) {
 }
 export default Button;
 
-
 Button.propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
 };

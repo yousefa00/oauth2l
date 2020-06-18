@@ -7,12 +7,11 @@
 }]*/
 
 import React from "react";
-import PropTypes from 'prop-types';
-
+import PropTypes from "prop-types";
 
 /**
- * @param {string} props holds information about the button 
- * @return {div} returns Radio button that is used in Credentials page 
+ * @param {string} props holds information about the button
+ * @return {div} returns Radio button that is used in Credentials page
  */
 function Radio(props) {
   return (
@@ -35,9 +34,9 @@ function Radio(props) {
 export default Radio;
 
 Radio.propTypes = {
-    name: PropTypes.string,
-    value: PropTypes.string,
-    id: PropTypes.string,
-    onChange: PropTypes.func,
-    changed: PropTypes.bool
+  name: PropTypes.string,
+  value: PropTypes.string,
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+  changed: PropTypes.bool,
 };

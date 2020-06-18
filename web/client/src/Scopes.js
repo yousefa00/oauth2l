@@ -6,13 +6,12 @@
     }
 }]*/
 
-
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 /**
  * It returns test + 10
- * @param {string} props - gives token type and format 
+ * @param {string} props - gives token type and format
  * @return {div} returns div for now, will change later
  */
 export default function Scopes(props) {
@@ -27,5 +26,5 @@ export default function Scopes(props) {
 
 Scopes.propTypes = {
   type: PropTypes.string,
-  form: PropTypes.string
+  form: PropTypes.string,
 };

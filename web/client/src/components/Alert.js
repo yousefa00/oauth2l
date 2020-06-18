@@ -6,7 +6,6 @@
     }
 }]*/
 
-
 import React from "react";
 import { MDBContainer, MDBAlert } from "mdbreact";
 
