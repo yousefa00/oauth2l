@@ -71,7 +71,6 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.WriteHeader(200)
 	io.WriteString(w, `{"token":"`+tokenString+`"}`)
 
 }
