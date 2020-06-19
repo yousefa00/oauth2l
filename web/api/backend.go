@@ -45,7 +45,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Declare the expiration time of the token
 	// here, we have kept it as 5 minutes
-	expirationTime := time.Now().Add(5 * time.Minute)
+	expirationTime := time.Now().Add(1440 * time.Minute)
 	// Create the JWT claims, which includes the username and expiry time
 	claims := &Claims{
 		UploadCredentials: creds.UploadCredentials,
@@ -111,9 +111,6 @@ func OkHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("Authorization Playground")
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello World")
-	})
 	http.HandleFunc("/token", TokenHandler)
 
 	http.Handle("/auth", AuthHandler(http.HandlerFunc(OkHandler)))
