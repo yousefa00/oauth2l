@@ -8,6 +8,7 @@ import (
 	"testing"
 )
 
+
 func TestAuthHandlerValid(t *testing.T) {
 	req, err := http.NewRequest("GET", "/auth", nil)
 	if err != nil {
@@ -29,6 +30,7 @@ func TestAuthHandlerValid(t *testing.T) {
 
 func TestAuthHandlerExpired(t *testing.T) {
 	req, err := http.NewRequest("GET", "/auth", nil)
+
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -53,6 +55,7 @@ func TestAuthHandlerExpired(t *testing.T) {
 
 func TestAuthHandlerInvalid1(t *testing.T) {
 	req, err := http.NewRequest("GET", "/auth", nil)
+
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -78,6 +81,7 @@ func TestAuthHandlerInvalid1(t *testing.T) {
 
 func TestAuthHandlerInvalid2(t *testing.T) {
 	req, err := http.NewRequest("GET", "/auth", nil)
+
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -100,6 +104,7 @@ func TestAuthHandlerInvalid2(t *testing.T) {
 			rr.Body.String(), expected)
 	}
 }
+
 
 func TestTokenHandlerNoBody1(t *testing.T) {
 
@@ -134,16 +139,17 @@ func TestTokenHandlerNoBody1(t *testing.T) {
 }
 
 func TestTokenHandlerNoBody2(t *testing.T) {
-
 	jsonStr := []byte(`{
         "requesttype":"fetch",
         "args":{
             "--scope":["cloud-platform","userinfo.email"]
+
 		},
 		"uploadcredentials":{}
     }`)
 
 	req, err := http.NewRequest("GET", "/token", bytes.NewBuffer(jsonStr))
+
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -165,6 +171,7 @@ func TestTokenHandlerNoBody2(t *testing.T) {
 	}
 
 }
+
 
 func TestTokenHandlerNoCreation(t *testing.T) {
 
@@ -211,6 +218,7 @@ func TestTokenHandlerValidWithCreation(t *testing.T) {
     }`)
 
 	req, err := http.NewRequest("GET", "/token", bytes.NewBuffer(jsonStr))
+
 	if err != nil {
 		t.Fatal(err)
 	}

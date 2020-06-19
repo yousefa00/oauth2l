@@ -37,6 +37,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+
 	if len(creds.UploadCredentials) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
 		io.WriteString(w, `{"error":"cannot make token without credentials"}`)
@@ -49,6 +50,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 	// Create the JWT claims, which includes the username and expiry time
 	claims := &Claims{
 		UploadCredentials: creds.UploadCredentials,
+
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds
 			ExpiresAt: expirationTime.Unix(),
@@ -69,6 +71,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // AuthHandler checks if token is valid. Returning a 401 status to the client if it is not valid.
+
 func AuthHandler(next http.Handler) http.Handler {
 	jwtMiddleware := jwtmiddleware.New(jwtmiddleware.Options{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
@@ -105,7 +108,6 @@ func OkHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 	io.WriteString(w, `{"response":"`+response+`"}`)
-
 }
 
 func main() {
