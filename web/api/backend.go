@@ -15,14 +15,13 @@ import (
 type Credentials struct {
 	RequestType string
 	Args        map[string]interface{}
-	UseCache    string
-	Body        map[string]interface{}
+	UploadCredentials        map[string]interface{}
 }
 
 // Claims object that will be encoded to a JWT.
 // We add jwt.StandardClaims as an embedded type, to provide fields like expiry time
 type Claims struct {
-	Body map[string]interface{}
+	UploadCredentials map[string]interface{}
 	jwt.StandardClaims
 }
 
@@ -38,7 +37,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	if len(creds.Body) == 0 {
+	if len(creds.UploadCredentials) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
 		io.WriteString(w, `{"error":"cannot make token without credentials"}`)
 		return
@@ -49,7 +48,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	// Create the JWT claims, which includes the username and expiry time
 	claims := &Claims{
-		Body: creds.Body,
+		UploadCredentials: creds.UploadCredentials,
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds
 			ExpiresAt: expirationTime.Unix(),

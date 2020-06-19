@@ -140,7 +140,7 @@ func TestTokenHandlerNoBody2(t *testing.T) {
         "args":{
             "--scope":["cloud-platform","userinfo.email"]
 		},
-		"body":{}
+		"uploadcredentials":{}
     }`)
 
 	req, err := http.NewRequest("GET", "/token", bytes.NewBuffer(jsonStr))
@@ -201,7 +201,7 @@ func TestTokenHandlerValidWithCreation(t *testing.T) {
             "--scope":["cloud-platform","userinfo.email"]
 		},
 		"needToken":"true",
-        "body": {
+        "uploadcredentials": {
       "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
       "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
       "quota_project_id": "delays-or-traffi-1569131153704",
