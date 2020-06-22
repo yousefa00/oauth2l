@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CheckboxWithGreenCheck = withStyles({
+const CheckboxCustom = withStyles({
   root: {
     "&$checked": {
       "& .MuiIconButton-label": {
@@ -37,6 +37,12 @@ const CheckboxWithGreenCheck = withStyles({
   },
   checked: {}
 })(Checkbox);
+
+
+/**
+ *
+ * * @return {Fragment} returns a checlist with API names
+ */
 
 function CheckboxList() {
   const classes = useStyles();
@@ -63,7 +69,7 @@ function CheckboxList() {
         return (
           <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
             <ListItemIcon>
-            <CheckboxWithGreenCheck
+            <CheckboxCustom
                 edge="start"
                 checked={checked.indexOf(value) !== -1}
                 tabIndex={-1}
