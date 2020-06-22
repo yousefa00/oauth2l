@@ -1,16 +1,16 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import Checkbox from "@material-ui/core/Checkbox";
+import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
@@ -22,7 +22,7 @@ const CheckboxCustom = withStyles({
       "& .MuiIconButton-label": {
         position: "relative",
         zIndex: 0,
-        color: '#4285F4',
+        color: "#4285F4",
       },
       "& .MuiIconButton-label:after": {
         content: '""',
@@ -31,13 +31,12 @@ const CheckboxCustom = withStyles({
         height: 15,
         width: 15,
         position: "absolute",
-        zIndex: -1
-      }
-    }
+        zIndex: -1,
+      },
+    },
   },
-  checked: {}
+  checked: {},
 })(Checkbox);
-
 
 /**
  *
@@ -67,20 +66,24 @@ function CheckboxList() {
         const labelId = `checkbox-list-label-${value}`;
 
         return (
-          <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+          <ListItem
+            key={value}
+            role={undefined}
+            dense
+            button
+            onClick={handleToggle(value)}
+          >
             <ListItemIcon>
-            <CheckboxCustom
+              <CheckboxCustom
                 edge="start"
                 checked={checked.indexOf(value) !== -1}
                 tabIndex={-1}
                 disableRipple
                 color="primary"
-            
               />
             </ListItemIcon>
             <ListItemText id={labelId} primary={`${value}`} />
-            <ListItemSecondaryAction>
-            </ListItemSecondaryAction>
+            <ListItemSecondaryAction></ListItemSecondaryAction>
           </ListItem>
         );
       })}
