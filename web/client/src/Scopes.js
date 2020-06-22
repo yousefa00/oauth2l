@@ -1,30 +1,48 @@
-/* eslint "require-jsdoc": ["error", {
-    "require": {
-        "FunctionDeclaration": true,
-        "MethodDefinition": true,
-        "ClassDeclaration": false
-    }
-}]*/
 
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import CheckboxList from "./components/Checklist";
 
 /**
- * It returns test + 10
- * @param {string} props - gives token type and format
- * @return {div} returns div for now, will change later
+ *
+ * @return {div} returns the page that contains the ability to choose the type
  */
-export default function Scopes(props) {
+function Scopes() {
+    const [scope, setScope] = useState("");
+
+  const handleSubmit = (e) => {
+      return [scope];
+  };
+
   return (
-    <div>
-      <h1>Message received</h1>
-      <h1>{props.type} </h1>
-      <h1>{props.form}</h1>
+    <div className="top">
+      <div className="shadow-box-example z-depth-2">
+        <MDBContainer>
+          <form onSubmit={handleSubmit}>
+            <MDBCol>
+              {" "}
+              <p className="h5 text-center mb-4">Choose token type </p>
+            </MDBCol>
+
+           <MDBRow>
+           <MDBCol>
+                  {" "}
+                  <CheckboxList>
+                  onChange={(e) => setScope(e.target.value)}
+                  </CheckboxList>
+                </MDBCol>
+           </MDBRow>
+          
+            <div className="next">
+              <MDBBtn outline color="info" type="submit">
+                Submit
+              </MDBBtn>
+            </div>
+          </form>
+        </MDBContainer>
+      </div>
     </div>
   );
 }
 
-Scopes.propTypes = {
-  type: PropTypes.string,
-  form: PropTypes.string,
-};
+export default Scopes;
