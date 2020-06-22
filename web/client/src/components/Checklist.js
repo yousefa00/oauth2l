@@ -40,7 +40,7 @@ const CheckboxCustom = withStyles({
 
 /**
  *
- *  @return {Fragment} returns a checklist with API names
+ *  @return {List} returns a checklist with API names
  */
 
 function CheckboxList() {
