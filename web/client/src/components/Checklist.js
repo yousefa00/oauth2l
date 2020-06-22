@@ -42,7 +42,6 @@ const CheckboxCustom = withStyles({
  *
  *  @return {List} returns a checklist with API names
  */
-
 function CheckboxList() {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
