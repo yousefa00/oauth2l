@@ -1,6 +1,6 @@
 oauth2l Authentication Playground
-![](https://github.com/yousefa/oauth2l/workflows/api/badge.svg)
-![](https://github.com/yousefa/oauth2l/workflows/client/badge.svg)
+![GITHUB-BADGE](https://github.com/yousefa00/oauth2l/workflows/api/badge.svg)
+![GITHUB-BADGE](https://github.com/yousefa00/oauth2l/workflows/client/badge.svg)
 -------
 
 The Oauth2l Authentication Playground is a web application in which developers can use to interact with the OAuth2l CLI tool using a GUI. Its primary use is to allow developers to interact and experiment with all the Auth flows and Auth tokens supported in GCP.
