@@ -1,8 +1,7 @@
 import React from "react";
 import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-
-import Credentials from "../components/Credentials";
+import Scopes from "../components/Scopes";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -10,11 +9,11 @@ Enzyme.configure({ adapter: new Adapter() });
 // assert pm react dom state
 // shallow rendering is not used for this as we need to be able to test the child components
 
-describe("Credential Component", () => {
+describe("Scopes Component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(<Credentials />);
+    wrapper = mount(<Scopes />);
   });
 
   it("renders the page", () => {

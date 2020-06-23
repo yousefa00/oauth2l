@@ -1,7 +1,9 @@
 .shadow-box-example {
   padding: 4rem;
 }
+
 /*align everything in the app to the middle*/
+
 .App {
   text-align: center;
   position: relative;
@@ -31,7 +33,7 @@ label {
   flex-direction: row;
   justify-content: flex-end;
   text-align: right;
-  width: 50px;
+  width: 4.2rem;
 }
 
 .btn1 {
@@ -39,4 +41,8 @@ label {
   margin-bottom: 1rem;
   padding-left: -2rem;
   float: right;
+}
+
+#scopes-label {
+  text-align: left;
 }
