@@ -2,11 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"testing"
+	"io/ioutil"
 )
-
 
 func TestWrapperCommandStructSingleArg(t *testing.T) {
 	const expectedRequest = "test"
@@ -15,6 +14,7 @@ func TestWrapperCommandStructSingleArg(t *testing.T) {
 	wrapper := WrapperCommand{
 		expectedRequest,
 		expectedArgs,
+		Credential{},
 	}
 
 	if wrapper.RequestType != expectedRequest {
@@ -33,6 +33,7 @@ func TestWrapperCommandStructManyArgs(t *testing.T) {
 	wrapper := WrapperCommand{
 		expectedRequest,
 		expectedArgs,
+		Credential{},
 	}
 
 	if wrapper.RequestType != expectedRequest {
@@ -51,6 +52,7 @@ func TestInvalidTypeInArgs(t *testing.T) {
 	wrapper := WrapperCommand{
 		expectedRequest,
 		expectedArgs,
+		nil,
 	}
 
 	_, err := wrapper.Execute()
@@ -67,11 +69,12 @@ func TestValidTypeInArgs(t *testing.T) {
 	wrapper := WrapperCommand{
 		expectedRequest,
 		expectedArgs,
+		nil,
 	}
 
-	_, err := wrapper.Execute()
+	_, ok := combinedArgs(wrapper)
 
-	if err != nil {
+	if !ok {
 		t.Errorf("valid types not detected")
 	}
 }
@@ -86,7 +89,7 @@ func TestJSONValidTypeInArgs(t *testing.T) {
 		},
 		"body": {}
 	}`)
-	
+
 	json.Unmarshal(jsonString, &wrapper)
 
 	_, err := wrapper.Execute()
@@ -106,7 +109,7 @@ func TestJSONInvalidTypeInArgs(t *testing.T) {
 		},
 		"body": {}
 	}`)
-	
+
 	json.Unmarshal(jsonString, &wrapper)
 
 	_, err := wrapper.Execute()
@@ -126,7 +129,7 @@ func TestJSONValueInArgs(t *testing.T) {
 		},
 		"body": {}
 	}`)
-	
+
 	json.Unmarshal(jsonString, &wrapper)
 
 	flattenedArgs, _ := combinedArgs(wrapper)
@@ -143,11 +146,81 @@ func TestDummyOauth2lCommand(t *testing.T) {
 	wrapper := WrapperCommand{
 		expectedRequest,
 		expectedArgs,
+		nil,
 	}
 
-	output, err := wrapper.Execute()
-	fmt.Printf("%v", []byte(output))
-	if output != "1" || err != nil {
-		t.Errorf("error running basic command")
+	output, _ := wrapper.Execute()
+	if output != "1" {
+		t.Errorf("error running dummy command")
+	}
+}
+
+func TestTokenCreationCredential(t *testing.T) {
+	cred := Credential{"credential": `{
+		"quota_project_id": "delays-or-traffi-1569131153704",
+		"refresh_token": "1//0dFSxxi4NOTl2CgYIARAAGA0SNwF-L9Ira5YTnnFer1GCZBToGkwmVMAounGai_x4CgHwMAFgFNBsPSK5hBwxfpGn88u3roPrRcQ",
+		"type": "authorized_user"
+	  }`}
+
+	wrapper := WrapperCommand{
+		"fetch",
+		Args{"--scope": []string{"cloud-platform"}},
+		cred,
+	}
+
+	_, err := wrapper.Execute()
+
+	if err != nil {
+		t.Errorf("error creating token")
+	}
+}
+
+func TestCredentialFileCreation(t *testing.T) {
+	cred := Credential{"credential": `{
+		"client_id": "some",
+		"client_secret": "random",
+		"refresh_token": "test",
+		"type": "code"
+		}`}
+
+	fd, err := allocateMemFile(cred)
+
+	if err != nil {
+		t.Errorf("error creating file")
+	}
+
+	path := getCredentialPath(fd)
+
+	if path == "" {
+		t.Errorf("path not set")
+	}
+}
+
+func TestCredentialFileContents(t *testing.T) {
+	cred := Credential{"credential": `{
+		"client_id": "some",
+		"client_secret": "random",
+		"refresh_token": "test",
+		"type": "code"
+		}`}
+
+	fd, err := allocateMemFile(cred)
+
+	if err != nil {
+		t.Errorf("error creating file")
+	}
+
+	path := getCredentialPath(fd)
+
+	fileBytes, err := ioutil.ReadFile(path)
+	
+	if err != nil {
+		t.Errorf("error reading from file")
+	}
+
+	fileStr := string(fileBytes)
+
+	if fileStr != cred["credential"].(string) {
+		t.Errorf("file contents do not match")
 	}
 }

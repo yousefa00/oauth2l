@@ -16,13 +16,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Credentials object read body from the request body
-type Credentials struct {
-	RequestType       string
-	Args              map[string]interface{}
-	UploadCredentials map[string]interface{}
-}
-
 // Claims object that will be encoded to a JWT.
 // We add jwt.StandardClaims as an embedded type, to provide fields like expiry time
 type Claims struct {
@@ -31,7 +24,7 @@ type Claims struct {
 }
 
 var jwtKey = []byte(os.Getenv("SECRET_KEY"))
-var creds Credentials
+var creds WrapperCommand
 
 // TokenHandler to create the Token
 func TokenHandler(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +41,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(creds.UploadCredentials) == 0 {
+	if len(creds.Credential) == 0 {
 		w.WriteHeader(http.StatusBadRequest)
 		io.WriteString(w, `{"error":"cannot make token without credentials"}`)
 		return
@@ -59,7 +52,7 @@ func TokenHandler(w http.ResponseWriter, r *http.Request) {
 	expirationTime := time.Now().Add(1440 * time.Minute)
 	// Create the JWT claims, which includes the username and expiry time
 	claims := &Claims{
-		UploadCredentials: creds.UploadCredentials,
+		UploadCredentials: creds.Credential,
 
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds
@@ -93,7 +86,7 @@ func AuthHandler(next http.Handler) http.Handler {
 
 //NoTokenHandler for the case when a cached token is not used
 func NoTokenHandler(w http.ResponseWriter, r *http.Request) {
-	var cacheCreds Credentials
+	var cacheCreds WrapperCommand
 	err := json.NewDecoder(r.Body).Decode(&cacheCreds)
 	if err != nil {
 		// If the structure of the body is wrong, return an HTTP error

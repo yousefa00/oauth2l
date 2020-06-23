@@ -14,6 +14,7 @@ func TestAuthHandlerValid(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	
 	req.Header.Set("Authorization", "Bearer "+os.Getenv("VALID_TOKEN"))
 	rr := httptest.NewRecorder()
 	handler := (AuthHandler(http.HandlerFunc(OkHandler)))
@@ -24,7 +25,7 @@ func TestAuthHandlerValid(t *testing.T) {
 
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusUnauthorized)
+			status, http.StatusOK)
 	}
 }
 
@@ -204,7 +205,7 @@ func TestTokenHandlerValidWithCreation(t *testing.T) {
         "args":{
             "scope":["cloud-platform","userinfo.email"]
 		},
-        "uploadcredentials": {
+        "credential": {
       "quota_project_id": "delays-or-traffi-1569131153704",
       "refresh_token": "1//0dFSxxi4NOTl2CgYIARAAGA0SNwF-L9Ira5YTnnFer1GCZBToGkwmVMAounGai_x4CgHwMAFgFNBsPSK5hBwxfpGn88u3roPrRcQ",
       "type": "authorized_user"
