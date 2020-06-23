@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"reflect"
 	"testing"
+	"io/ioutil"
 )
-
 
 func TestWrapperCommandStructSingleArg(t *testing.T) {
 	const expectedRequest = "test"
@@ -89,7 +89,7 @@ func TestJSONValidTypeInArgs(t *testing.T) {
 		},
 		"body": {}
 	}`)
-	
+
 	json.Unmarshal(jsonString, &wrapper)
 
 	_, err := wrapper.Execute()
@@ -109,7 +109,7 @@ func TestJSONInvalidTypeInArgs(t *testing.T) {
 		},
 		"body": {}
 	}`)
-	
+
 	json.Unmarshal(jsonString, &wrapper)
 
 	_, err := wrapper.Execute()
@@ -129,7 +129,7 @@ func TestJSONValueInArgs(t *testing.T) {
 		},
 		"body": {}
 	}`)
-	
+
 	json.Unmarshal(jsonString, &wrapper)
 
 	flattenedArgs, _ := combinedArgs(wrapper)
@@ -152,5 +152,76 @@ func TestDummyOauth2lCommand(t *testing.T) {
 	output, _ := wrapper.Execute()
 	if output != "1" {
 		t.Errorf("error running dummy command")
+	}
+}
+
+func TestTokenCreationCredential(t *testing.T) {
+	cred := Credential{"credential": `{
+		"client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
+		"client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
+		"refresh_token": "1//0fSiQuKvDXZMUCgYIARAAGA8SNwF-L9IrfdCKsbXFGSz5ZDEWlNnU6oTCoTI3FEN3J_2BsHmbfcvtNoWqhv7nrJ8G9UDGdREM4Ms",
+		"type": "authorized_user"
+		}`}
+
+	wrapper := WrapperCommand{
+		"fetch",
+		Args{"--scope": []string{"cloud-platform"}},
+		cred,
+	}
+
+	_, err := wrapper.Execute()
+
+	if err != nil {
+		t.Errorf("error creating token")
+	}
+}
+
+func TestCredentialFileCreation(t *testing.T) {
+	cred := Credential{"credential": `{
+		"client_id": "some",
+		"client_secret": "random",
+		"refresh_token": "test",
+		"type": "code"
+		}`}
+
+	fd, err := allocateMemFile(cred)
+
+	if err != nil {
+		t.Errorf("error creating file")
+	}
+
+	path := getCredentialPath(fd)
+
+	if path == "" {
+		t.Errorf("path not set")
+	}
+}
+
+func TestCredentialFileContents(t *testing.T) {
+	cred := Credential{"credential": `{
+		"client_id": "some",
+		"client_secret": "random",
+		"refresh_token": "test",
+		"type": "code"
+		}`}
+
+	fd, err := allocateMemFile(cred)
+
+	if err != nil {
+		t.Errorf("error creating file")
+	}
+
+	path := getCredentialPath(fd)
+
+	fileBytes, err := ioutil.ReadFile(path)
+	
+	if err != nil {
+		t.Errorf("error reading from file")
+	}
+
+	fileStr := string(fileBytes)
+
+	if fileStr != cred["credential"].(string) {
+		t.Errorf("file contents do not match")
 	}
 }
