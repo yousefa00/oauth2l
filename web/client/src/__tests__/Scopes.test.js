@@ -5,9 +5,9 @@ import Scopes from "../components/Scopes";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-// test applications use-cases form user's pov. Users access information on a web page and interact with available controls
+// test applications use-cases from user's pov. Users access information on a web page and interact with available controls
 // assert pm react dom state
-// shawllow rendering is not used for this as we need to be able to test the child components
+// shallow rendering is not used for this as we need to be able to test the child components
 
 describe("Scopes Component", () => {
   let wrapper;
