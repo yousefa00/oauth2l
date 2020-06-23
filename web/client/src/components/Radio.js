@@ -38,4 +38,5 @@ Radio.propTypes = {
   value: PropTypes.string,
   id: PropTypes.string,
   onChange: PropTypes.func,
+  changed: PropTypes.bool,
 };
