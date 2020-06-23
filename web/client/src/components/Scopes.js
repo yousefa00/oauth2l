@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MDBContainer, MDBCol, MDBBtn, MDBInput } from "mdbreact";
 
 /**
@@ -10,7 +10,7 @@ function Scopes() {
     <div className="top">
       <div className="shadow-box-example z-depth-2">
         <MDBContainer>
-          <form onSubmit={handleSubmit}>
+          <form>
             <MDBCol>
               {" "}
               <p className="h5 text-center mb-4">Enter scopes </p>
