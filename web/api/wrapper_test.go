@@ -157,11 +157,10 @@ func TestDummyOauth2lCommand(t *testing.T) {
 
 func TestTokenCreationCredential(t *testing.T) {
 	cred := Credential{"credential": `{
-		"client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
-		"client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
-		"refresh_token": "1//0fSiQuKvDXZMUCgYIARAAGA8SNwF-L9IrfdCKsbXFGSz5ZDEWlNnU6oTCoTI3FEN3J_2BsHmbfcvtNoWqhv7nrJ8G9UDGdREM4Ms",
+		"quota_project_id": "delays-or-traffi-1569131153704",
+		"refresh_token": "1//0dFSxxi4NOTl2CgYIARAAGA0SNwF-L9Ira5YTnnFer1GCZBToGkwmVMAounGai_x4CgHwMAFgFNBsPSK5hBwxfpGn88u3roPrRcQ",
 		"type": "authorized_user"
-		}`}
+	  }`}
 
 	wrapper := WrapperCommand{
 		"fetch",

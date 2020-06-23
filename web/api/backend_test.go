@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"reflect"
 	"testing"
 )
@@ -14,7 +15,7 @@ func TestAuthHandlerValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	
-	req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVcGxvYWRDcmVkZW50aWFscyI6eyJjbGllbnRfaWQiOiJyYW5kb20iLCJjbGllbnRfc2VjcmV0IjoibW9jayIsInF1b3RhX3Byb2plY3RfaWQiOiJkYXRhIiwicmVmcmVzaF90b2tlbiI6InRvIiwidHlwZSI6InVzZSJ9LCJleHAiOjE1OTMwMTk2ODl9.v_CabNarnqWRKgkBXK17ht5GYowhpdlRo_vDQbbRVaA")
+	req.Header.Set("Authorization", "Bearer "+os.Getenv("VALID_TOKEN"))
 	rr := httptest.NewRecorder()
 	handler := (AuthHandler(http.HandlerFunc(OkHandler)))
 
