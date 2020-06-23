@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
-import CheckboxList from "./components/Checklist";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from "mdbreact";
 
 /**
  *
@@ -20,17 +19,9 @@ function Scopes() {
           <form onSubmit={handleSubmit}>
             <MDBCol>
               {" "}
-              <p className="h5 text-center mb-4">Choose token type </p>
+              <p className="h5 text-center mb-4">Enter scopes </p>
             </MDBCol>
-
-            <MDBRow>
-              <MDBCol>
-                {" "}
-                <CheckboxList>
-                  onChange={(e) => setScope(e.target.value)}
-                </CheckboxList>
-              </MDBCol>
-            </MDBRow>
+            <MDBInput id="scopes-label" label="Scopes" size="lg" />
 
             <div className="next">
               <MDBBtn outline color="info" type="submit">

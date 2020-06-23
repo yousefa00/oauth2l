@@ -17,7 +17,7 @@ import {
   MDBRow,
 } from "mdbreact";
 import { Route, NavLink, HashRouter } from "react-router-dom";
-import Scopes from "./Scopes";
+import Scopes from "./components/Scopes";
 import Button from "./components/Button";
 import { getCacheToken } from "./util/apiWrapper";
 
