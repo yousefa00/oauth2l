@@ -101,7 +101,7 @@ func NoTokenHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	creds = cacheCreds
-	fmt.Println(creds.Args)
+
 	OkHandler(w, r)
 
 }
