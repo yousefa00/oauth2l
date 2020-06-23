@@ -118,7 +118,6 @@ func OkHandler(w http.ResponseWriter, r *http.Request) {
 			delete(newWrapperCommand.Args, k)
 		}
 	}
-	fmt.Println(newWrapperCommand.Args)
 	response, err := newWrapperCommand.Execute()
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
